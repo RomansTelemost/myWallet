@@ -22,8 +22,9 @@ public class WalletController {
     private WalletService walletService;
 
     @PostMapping("/addWallet")
-    public ResponseEntity<?> addNewWallet() {
-        return new ResponseEntity<>(walletService.addWallet(), HttpStatus.CREATED);
+    public ResponseEntity<String> addNewWallet() {
+        walletService.addWallet();
+        return ResponseEntity.ok("DS");
     }
 
     @PostMapping("/wallet")

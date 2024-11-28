@@ -8,6 +8,6 @@ import java.util.UUID;
 
 public interface WalletRepository extends CrudRepository<Wallet, Long> {
 
-    List<Wallet> findById(UUID uuid);
+    Wallet findById(UUID uuid);
 
 }
