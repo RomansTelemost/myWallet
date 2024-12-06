@@ -4,6 +4,9 @@ import com.appWallet.myWallet.customException.CustomExceptionHandler;
 import com.appWallet.myWallet.dto.DtoWallet;
 import com.appWallet.myWallet.entity.Wallet;
 import com.appWallet.myWallet.service.WalletService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,16 +17,25 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("api/v1")
+@RequestMapping("/wallet")
 @CustomExceptionHandler
+@Tag(name = "api4")
+@RequiredArgsConstructor
 public class WalletController {
 
     @Autowired
     private WalletService walletService;
 
+    @GetMapping("/hello")
+    public String add() {
+        return "hello";
+    }
+
     @PostMapping("/addWallet")
-    public ResponseEntity<?> addNewWallet() {
-        return new ResponseEntity<>(walletService.addWallet(), HttpStatus.CREATED);
+    @Operation(summary = "Create new wallet")
+    public ResponseEntity<Wallet> addNewWallet() {
+        Wallet wallet = walletService.addWallet();
+        return ResponseEntity.ok(wallet);
     }
 
     @PostMapping("/wallet")

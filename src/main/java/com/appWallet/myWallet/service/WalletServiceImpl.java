@@ -4,12 +4,14 @@ import com.appWallet.myWallet.dto.DtoWallet;
 import com.appWallet.myWallet.entity.Wallet;
 import com.appWallet.myWallet.repo.WalletRepository;
 import com.appWallet.myWallet.utils.OperationType;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -19,8 +21,9 @@ public class WalletServiceImpl implements WalletService {
     private WalletRepository walletRepository;
 
     @Override
+    @Transactional
     public void updateWalletBalance(DtoWallet dtoWallet) {
-        Wallet wallet = walletRepository.findById(dtoWallet.getWalletId()).stream().findFirst().orElse(null);
+        Wallet wallet = Optional.of(walletRepository.findById(dtoWallet.getWalletId())).orElse(null);
         if (wallet == null) {
             throw new IllegalArgumentException("Wallet with uuid " + dtoWallet.getWalletId() + " was not found");
         }
@@ -47,7 +50,7 @@ public class WalletServiceImpl implements WalletService {
 
     @Override
     public BigDecimal getWalletBalance(UUID uuid) {
-        Wallet wallet = walletRepository.findById(uuid).stream().findFirst().orElse(null);
+        Wallet wallet = Optional.of(walletRepository.findById(uuid)).orElse(null);
         if (wallet == null) {
             throw new IllegalArgumentException("Wallet with " + uuid + " was not found");
         }
