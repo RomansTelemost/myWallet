@@ -23,39 +23,39 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class WalletController {
 
-//    @Autowired
-//    private WalletService walletService;
+    @Autowired
+    private WalletService walletService;
 
     @GetMapping("/hello")
     public String add() {
-        return "DSAD";
+        return "hello";
     }
 
-//    @PostMapping("/addWallet")
-//    @Operation(summary = "Create new wallet")
-//    public ResponseEntity<String> addNewWallet() {
-//        walletService.addWallet();
-//        return ResponseEntity.ok("DS");
-//    }
-//
-//    @PostMapping("/wallet")
-//    public ResponseEntity<?> updateBalance(@RequestBody DtoWallet dtoWallet) {
-//        walletService.updateWalletBalance(dtoWallet);
-//        return new ResponseEntity<>(HttpStatus.OK);
-//    }
-//
-//    @GetMapping("/wallet")
-//    public BigDecimal getWalletBalance(@RequestParam UUID uuid) {
-//        return walletService.getWalletBalance(uuid);
-//    }
-//
-//    @DeleteMapping("/removeWallet")
-//    public void removeWallet(@RequestBody Wallet wallet) {
-//        walletService.removeWallet(wallet);
-//    }
-//
-//    @GetMapping("/getAllWallet")
-//    public ResponseEntity<List<Wallet>> getAllWallet() {
-//        return new ResponseEntity<>(walletService.getAllWallet(), HttpStatus.OK);
-//    }
+    @PostMapping("/addWallet")
+    @Operation(summary = "Create new wallet")
+    public ResponseEntity<Wallet> addNewWallet() {
+        Wallet wallet = walletService.addWallet();
+        return ResponseEntity.ok(wallet);
+    }
+
+    @PostMapping("/wallet")
+    public ResponseEntity<?> updateBalance(@RequestBody DtoWallet dtoWallet) {
+        walletService.updateWalletBalance(dtoWallet);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @GetMapping("/wallet")
+    public BigDecimal getWalletBalance(@RequestParam UUID uuid) {
+        return walletService.getWalletBalance(uuid);
+    }
+
+    @DeleteMapping("/removeWallet")
+    public void removeWallet(@RequestBody Wallet wallet) {
+        walletService.removeWallet(wallet);
+    }
+
+    @GetMapping("/getAllWallet")
+    public ResponseEntity<List<Wallet>> getAllWallet() {
+        return new ResponseEntity<>(walletService.getAllWallet(), HttpStatus.OK);
+    }
 }
