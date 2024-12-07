@@ -10,4 +10,6 @@ public interface WalletRepository extends CrudRepository<Wallet, Long> {
 
     Wallet findById(UUID uuid);
 
+    int deleteById(UUID uuid);
+
 }

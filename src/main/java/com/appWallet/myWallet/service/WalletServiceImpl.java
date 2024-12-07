@@ -65,8 +65,13 @@ public class WalletServiceImpl implements WalletService {
     }
 
     @Override
-    public void removeWallet(Wallet wallet) {
-        walletRepository.delete(wallet);
+    @Transactional
+    public boolean removeWalletById(UUID uuid) {
+        Wallet wallet = walletRepository.findById(uuid);
+        if (wallet == null) {
+            throw new IllegalArgumentException("Wallet with " + uuid + " was not found");
+        }
+        return walletRepository.deleteById(uuid) != 0;
     }
 
     @Override

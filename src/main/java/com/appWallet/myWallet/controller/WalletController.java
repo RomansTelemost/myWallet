@@ -4,8 +4,13 @@ import com.appWallet.myWallet.customException.CustomExceptionHandler;
 import com.appWallet.myWallet.dto.DtoWallet;
 import com.appWallet.myWallet.entity.Wallet;
 import com.appWallet.myWallet.service.WalletService;
+import io.swagger.v3.oas.annotations.Hidden;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,7 +24,7 @@ import java.util.UUID;
 @RestController
 @RequestMapping("/wallet")
 @CustomExceptionHandler
-@Tag(name = "api4")
+@Tag(name ="Wallet controller tag", description = "Wallet description")
 @RequiredArgsConstructor
 public class WalletController {
 
@@ -27,6 +32,7 @@ public class WalletController {
     private WalletService walletService;
 
     @GetMapping("/hello")
+    @Hidden
     public String add() {
         return "hello";
     }
@@ -45,16 +51,21 @@ public class WalletController {
     }
 
     @GetMapping("/wallet")
-    public BigDecimal getWalletBalance(@RequestParam UUID uuid) {
+    @Operation(summary = "Get balance by wallet id", description = "Return wallet balance")
+    public BigDecimal getWalletBalance(@RequestParam @Parameter(description = "Id of exist wallet") UUID uuid) {
         return walletService.getWalletBalance(uuid);
     }
 
     @DeleteMapping("/removeWallet")
-    public void removeWallet(@RequestBody Wallet wallet) {
-        walletService.removeWallet(wallet);
+    public ResponseEntity<?> removeWallet(@RequestParam UUID uuid) {
+        if (walletService.removeWalletById(uuid)) {
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
     @GetMapping("/getAllWallet")
+    @SecurityRequirement(name = "JWT")
     public ResponseEntity<List<Wallet>> getAllWallet() {
         return new ResponseEntity<>(walletService.getAllWallet(), HttpStatus.OK);
     }

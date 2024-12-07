@@ -15,7 +15,7 @@ public interface WalletService {
 
     Wallet addWallet();
 
-    void removeWallet(Wallet wallet);
+    boolean removeWalletById(UUID uuid);
 
     List<Wallet> getAllWallet();
 }
