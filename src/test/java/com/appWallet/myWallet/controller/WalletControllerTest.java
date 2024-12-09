@@ -37,7 +37,7 @@ class WalletControllerTest {
 
     private Wallet getWallet() {
         Wallet wallet = new Wallet();
-        wallet.setId(uuid);
+//        wallet.setId(uuid);
         wallet.setBalance(new BigDecimal(0));
         return wallet;
     }

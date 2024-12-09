@@ -22,7 +22,7 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/wallet")
+@RequestMapping
 @CustomExceptionHandler
 @Tag(name ="Wallet controller tag", description = "Wallet description")
 @RequiredArgsConstructor

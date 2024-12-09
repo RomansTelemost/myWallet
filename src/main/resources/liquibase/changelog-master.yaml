@@ -1,3 +1,5 @@
 databaseChangeLog:
   - include:
       file: liquibase/scripts/001_ddl_create_wallet_table.sql
+#  - include:
+#      file:
