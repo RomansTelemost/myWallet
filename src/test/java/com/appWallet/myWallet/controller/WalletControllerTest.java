@@ -18,7 +18,7 @@ import java.util.UUID;
 
 @SpringBootTest
 @ExtendWith(MockitoExtension.class)
-@ActiveProfiles("test")
+//@ActiveProfiles("test")
 class WalletControllerTest {
 
     @Autowired
@@ -40,6 +40,18 @@ class WalletControllerTest {
 //        wallet.setId(uuid);
         wallet.setBalance(new BigDecimal(0));
         return wallet;
+    }
+
+    @Test
+    public void getWalletFromDb() {
+        Wallet wallet = getWallet();
+
+        Wallet result = walletRepository.save(wallet);
+
+        Wallet wallet1 = walletRepository.findById(result.getId());
+        Assertions.assertNotNull(wallet1);
+
+
     }
 
 }

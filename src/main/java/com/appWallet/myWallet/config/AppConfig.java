@@ -13,7 +13,7 @@ import org.springframework.web.WebApplicationInitializer;
 //import org.springframework.data.redis.serializer.GenericToStringSerializer;
 
 @Configuration
-@Profile("dev")
+@Profile("default")
 public class AppConfig implements WebApplicationInitializer {
 
     @Autowired

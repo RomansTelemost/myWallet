@@ -1,5 +1,6 @@
 package com.appWallet.myWallet.controller;
 
+import com.appWallet.myWallet.config.DataSourceConf;
 import com.appWallet.myWallet.customException.CustomExceptionHandler;
 import com.appWallet.myWallet.dto.DtoWallet;
 import com.appWallet.myWallet.entity.Wallet;
@@ -31,9 +32,13 @@ public class WalletController {
     @Autowired
     private WalletService walletService;
 
+    @Autowired
+    private DataSourceConf dataSourceConf;
+
     @GetMapping("/hello")
     @Hidden
     public String add() {
+        dataSourceConf.devBean();
         return "hello";
     }
 
